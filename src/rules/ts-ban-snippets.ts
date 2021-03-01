@@ -4,18 +4,17 @@ export type Options = [];
 export type MessageIds = "BannedSnippetMessage";
 
 const createRule = ESLintUtils.RuleCreator((name) => {
-  return `https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/blob/master/docs/${name}.md`;
+  return `https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/blob/main/docs/${name}.md`;
 });
 
 const BannedSnippetMessage = "{{name}} is a banned code snippet";
 
 export default createRule<Options, MessageIds>({
-  name: "js-function-in-worklet",
+  name: "ts-ban-snippets",
   meta: {
     type: "problem",
     docs: {
-      description:
-        "non-worklet functions should be invoked via runOnJS. Use runOnJS() or workletlize instead.",
+      description: "This TypeScript snippet is banned and should not be used.",
       category: "Possible Errors",
       recommended: "error",
     },
@@ -38,8 +37,7 @@ export default createRule<Options, MessageIds>({
       Program: (node) => {
         const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
 
-        if (tsNode.getText().indexOf(bannedSnippet) >= 0)
-        {
+        if (tsNode.getText().indexOf(bannedSnippet) >= 0) {
           context.report({
             messageId: "BannedSnippetMessage",
             ...node,
