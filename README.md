@@ -1,3 +1,5 @@
+# STATUS = WIP (Work In Progress!)
+
 Ban snippets of TypeScript from your project, using eslint.
 
 examples: "return void reject", "it.only", "debugger".
