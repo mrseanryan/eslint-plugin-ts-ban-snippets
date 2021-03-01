@@ -4,7 +4,7 @@ Ban snippets of TypeScript from your project, using eslint.
 
 examples: "return void reject", "it.only", "debugger".
 
-This is an eslint port of [https://github.com/mrseanryan/tslint-ban-snippets](tslint-ban-snippets)
+This is an eslint port of [tslint-ban-snippets](https://github.com/mrseanryan/tslint-ban-snippets)
 
 ## Installation
 
