@@ -25,7 +25,7 @@ jobs:
           yarn tsc
           yarn test
       - name: Deploy
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         run: npx semantic-release
         env:
           CI: true
