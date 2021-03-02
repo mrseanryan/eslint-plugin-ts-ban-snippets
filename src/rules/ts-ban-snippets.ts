@@ -1,13 +1,60 @@
-import { ESLintUtils } from "@typescript-eslint/experimental-utils";
+import { Node } from "typescript";
 
-export type Options = [];
+import { ESLintUtils } from "@typescript-eslint/experimental-utils";
+import { RuleContext } from "@typescript-eslint/experimental-utils/dist/ts-eslint";
+
+type Banned = {
+  snippets: string[];
+  message: string;
+  // TODO includePaths?: string    excludePaths?: string
+};
+
+export type Options = [
+  {
+    banned: Banned[];
+  }
+];
+
 export type MessageIds = "BannedSnippetMessage";
+
+// ref = https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin-tslint/src/rules/config.ts
 
 const createRule = ESLintUtils.RuleCreator((name) => {
   return `https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/blob/main/docs/${name}.md`;
 });
 
-const BannedSnippetMessage = "{{name}} is a banned code snippet";
+const BannedSnippetMessage =
+  "'{{name}}' is a banned code snippet - {{message}} [{{ruleName}}]";
+
+const analyzeNodeFor = (
+  node: Node,
+  banned: Banned,
+  context: Readonly<RuleContext<"BannedSnippetMessage", Options>>
+) => {
+  const text = node.getText();
+
+  node.getStart();
+  node.getEnd();
+  node.getSourceFile().getLineAndCharacterOfPosition(node.pos);
+
+  if (banned.snippets.some((s) => text.startsWith(s))) {
+    const pos = node.getSourceFile().getLineAndCharacterOfPosition(node.pos);
+    context.report({
+      loc: {
+        line: pos.line,
+        column: pos.character,
+      },
+      messageId: "BannedSnippetMessage",
+      data: {
+        name: text,
+        message: banned.message,
+        ruleName: "ts-ban-snippets",
+      },
+    });
+  }
+
+  node.forEachChild((c) => analyzeNodeFor(c, banned, context));
+};
 
 export default createRule<Options, MessageIds>({
   name: "ts-ban-snippets",
@@ -19,33 +66,60 @@ export default createRule<Options, MessageIds>({
       recommended: "error",
     },
     fixable: "code",
-    schema: [],
     messages: {
       BannedSnippetMessage,
     },
+    schema: [
+      {
+        type: "object",
+        properties: {
+          banned: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                snippets: {
+                  type: "array",
+                  items: {
+                    type: "string",
+                  },
+                },
+                message: {
+                  type: "string",
+                },
+              },
+              additionalProperties: false,
+            },
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
   },
-  defaultOptions: [],
+  defaultOptions: [{ banned: [] }],
   create: (context) => {
-    const parserServices = ESLintUtils.getParserServices(context);
-    // const config = parserServices.program.getCompilerOptions()
-    //   .configFilePath as string;
+    if (!context.options[0]) {
+      return {
+        Program: () => {
+          // do nothing
+        },
+      };
+    }
 
-    // TODO xxx read from config
-    const bannedSnippet = "xxx";
+    const parserServices = ESLintUtils.getParserServices(context);
+
+    /**
+     * The TSLint rules configuration passed in by the user
+     */
+    const banned = context.options[0].banned;
 
     return {
       Program: (node) => {
         const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
 
-        if (tsNode.getText().indexOf(bannedSnippet) >= 0) {
-          context.report({
-            messageId: "BannedSnippetMessage",
-            ...node,
-            data: {
-              name: bannedSnippet,
-            },
-          });
-        }
+        tsNode.forEachChild((child) => {
+          banned.forEach((b) => analyzeNodeFor(child, b, context));
+        });
       },
     };
   },

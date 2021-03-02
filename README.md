@@ -42,8 +42,19 @@ You need to set your `tsconfig.json` file in your eslint configuration via `pars
     "project": "./tsconfig.json"
   },
   "rules": {
-    "ts-exports/ts-ban-snippets: 2
-  }
+    "ts-exports/ts-ban-snippets: [
+            "error",
+            {
+                banned: [
+                    {
+                    snippets: ["return void reject", "return void resolve"],
+                    message:
+                        "Please do not return void - instead place the return statement on the following line.",
+                    },
+                ],
+            }
+        ],
+    }
 }
 ```
 

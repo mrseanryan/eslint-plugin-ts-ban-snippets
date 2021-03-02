@@ -1,6 +1,8 @@
-import { ESLintUtils } from "@typescript-eslint/experimental-utils";
 import fs from "fs";
 import path from "path";
+
+import { ESLintUtils } from "@typescript-eslint/experimental-utils";
+
 import rule from "../src/rules/ts-ban-snippets";
 
 const ruleTester = new ESLintUtils.RuleTester({
@@ -29,11 +31,25 @@ ruleTester.run("ts-ban-snippets", rule, {
     {
       code: code("fixtures/invalid/test1.ts"),
       filename: "invalid/test1.ts",
+      options: [
+        {
+          banned: [
+            {
+              snippets: ["return void reject", "return void resolve"],
+              message:
+                "Please do not return void - instead place the return statement on the following line.",
+            },
+          ],
+        },
+      ],
       errors: [
         {
           messageId: "BannedSnippetMessage",
           data: {
-            name: "xxx",
+            name: 'return void resolve("error!");',
+            message:
+              "Please do not return void - instead place the return statement on the following line.",
+            ruleName: "ts-ban-snippets",
           },
         },
       ],

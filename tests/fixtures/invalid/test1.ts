@@ -1,2 +1,9 @@
-const onexxx = "This is a banned snippet";
-export default onexxx;
+class MyClass {
+  doSomethingResolved() {
+    return new Promise((resolve) => {
+      return void resolve("error!");
+    });
+  }
+}
+
+new MyClass();
