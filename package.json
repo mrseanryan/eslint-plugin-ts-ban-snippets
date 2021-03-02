@@ -17,6 +17,17 @@
   ],
   "author": "Sean Ryan <mr.sean.ryan(at)gmail.com>",
   "funding": "https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets?sponsor=1",
+  "keywords": [
+    "eslint",
+    "ban",
+    "snippets",
+    "static code analysis",
+    "checker",
+    "analysis",
+    "disabled tests",
+    "static code analysis",
+    "code analysis"
+  ],
   "devDependencies": {
     "@types/node": "^14.14.20",
     "@typescript-eslint/eslint-plugin": "^4.16.0",

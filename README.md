@@ -58,6 +58,14 @@ You need to set your `tsconfig.json` file in your eslint configuration via `pars
 }
 ```
 
+## authors
+
+Original work by Sean Ryan - mr.sean.ryan(at gmail.com)
+
+## licence = MIT
+
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/blob/master/LICENSE) file for details
+
 ## Rules
 
 - [ts-ban-snippets](./docs/ts-ban-snippets.md)
