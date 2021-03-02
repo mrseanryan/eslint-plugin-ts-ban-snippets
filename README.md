@@ -1,5 +1,7 @@
 # STATUS = WIP (Work In Progress!)
 
+![CI CD Build](https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/actions/workflows/node.js.yml/badge.svg)
+
 Ban snippets of TypeScript from your project, using eslint.
 
 examples: "return void reject", "it.only", "debugger".
