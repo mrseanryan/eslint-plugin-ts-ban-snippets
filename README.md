@@ -1,5 +1,3 @@
-# STATUS = WIP (Work In Progress!)
-
 ![CI CD Build](https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/actions/workflows/node.js.yml/badge.svg)
 
 [![Size](https://packagephobia.now.sh/badge?p=eslint-plugin-ts-ban-snippets)](https://packagephobia.now.sh/result?p=eslint-plugin-ts-ban-snippets)
