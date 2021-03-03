@@ -1,10 +1,3 @@
-# Banned TypeScript Snippets (`ts-ban-snippets`)
-
-## Example with Options
-
-### file: .eslintrc
-
-```
 {
   "plugins": ["ts-ban-snippets"],
   "parserOptions": {
@@ -25,4 +18,3 @@
         ],
     }
 }
-```
