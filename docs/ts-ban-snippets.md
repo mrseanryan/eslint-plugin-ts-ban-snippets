@@ -1,20 +1,28 @@
 # Banned TypeScript Snippets (`ts-ban-snippets`)
 
-## Example Options
+## Example with Options
+
+### file: .eslintrc
 
 ```
-    "rules": {
-    "ts-exports/ts-ban-snippets: [
+{
+  "plugins": ["ts-ban-snippets"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "ts-ban-snippets/ts-ban-snippets": [
             "error",
             {
-                banned: [
+                "banned": [
                     {
-                    snippets: ["return void reject", "return void resolve"],
-                    message:
+                    "snippets": ["return void reject", "return void resolve"],
+                    "message":
                         "Please do not return void - instead place the return statement on the following line.",
                     },
                 ],
             }
         ],
     }
+}
 ```
