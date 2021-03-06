@@ -1,29 +1,10 @@
-import fs from "fs";
-import path from "path";
-
-import { ESLintUtils } from "@typescript-eslint/experimental-utils";
-
 import rule from "../../src/rules/ts-ban-snippets";
+import { creteRuleTester, getCode } from "../testUtils";
 
-const ruleTester = new ESLintUtils.RuleTester({
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    project: "./tsconfig.eslint.json",
-    tsconfigRootDir: path.join(__dirname, "fixtures"),
-    sourceType: "module",
-    ecmaFeatures: {
-      jsx: true,
-    },
-  },
-});
-
-const code = (name: string) =>
-  fs.readFileSync(path.join(__dirname, name), "utf8");
-
-ruleTester.run("ts-ban-snippets - simple", rule, {
+creteRuleTester(__dirname).run("ts-ban-snippets - simple", rule, {
   valid: [
     {
-      code: code("fixtures/valid/test.ts"),
+      code: getCode("fixtures/valid/test.ts", __dirname),
       filename: "valid/test.ts",
       options: [
         {
@@ -40,7 +21,7 @@ ruleTester.run("ts-ban-snippets - simple", rule, {
   ],
   invalid: [
     {
-      code: code("fixtures/invalid/test1.ts"),
+      code: getCode("fixtures/invalid/test1.ts", __dirname),
       filename: "invalid/test1.ts",
       options: [
         {
