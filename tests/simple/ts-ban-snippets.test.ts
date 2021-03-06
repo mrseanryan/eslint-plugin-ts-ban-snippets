@@ -3,7 +3,7 @@ import path from "path";
 
 import { ESLintUtils } from "@typescript-eslint/experimental-utils";
 
-import rule from "../src/rules/ts-ban-snippets";
+import rule from "../../src/rules/ts-ban-snippets";
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: "@typescript-eslint/parser",
@@ -20,7 +20,7 @@ const ruleTester = new ESLintUtils.RuleTester({
 const code = (name: string) =>
   fs.readFileSync(path.join(__dirname, name), "utf8");
 
-ruleTester.run("ts-ban-snippets", rule, {
+ruleTester.run("ts-ban-snippets - simple", rule, {
   valid: [
     {
       code: code("fixtures/valid/test.ts"),
