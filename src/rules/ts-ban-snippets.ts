@@ -6,7 +6,8 @@ import { RuleContext } from "@typescript-eslint/experimental-utils/dist/ts-eslin
 type Banned = {
   snippets: string[];
   message: string;
-  // TODO includePaths?: string    excludePaths?: string
+  // TODO includePaths?: string
+  excludePaths?: string[];
 };
 
 export type Options = [
@@ -26,11 +27,21 @@ const createRule = ESLintUtils.RuleCreator((name) => {
 const BannedSnippetMessage =
   "'{{name}}' is a banned code snippet - {{message}} [{{ruleName}}]";
 
+function isFileInPaths(filePath: string, paths: string[]): boolean {
+  return paths.some((path) => filePath.indexOf(path) >= 0);
+}
+
 const analyzeNodeFor = (
   node: Node,
   banned: Banned,
   context: Readonly<RuleContext<"BannedSnippetMessage", Options>>
 ) => {
+  if (
+    !!banned.excludePaths &&
+    isFileInPaths(node.getSourceFile().fileName, banned.excludePaths)
+  )
+    return;
+
   const text = node.getText();
 
   node.getStart();
@@ -86,6 +97,12 @@ export default createRule<Options, MessageIds>({
                 },
                 message: {
                   type: "string",
+                },
+                excludePaths: {
+                  type: "array",
+                  items: {
+                    type: "string",
+                  },
                 },
               },
               additionalProperties: false,

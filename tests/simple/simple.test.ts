@@ -25,6 +25,17 @@ ruleTester.run("ts-ban-snippets - simple", rule, {
     {
       code: code("fixtures/valid/test.ts"),
       filename: "valid/test.ts",
+      options: [
+        {
+          banned: [
+            {
+              snippets: ["return void reject", "return void resolve"],
+              message:
+                "Please do not return void - instead place the return statement on the following line.",
+            },
+          ],
+        },
+      ],
     },
   ],
   invalid: [
