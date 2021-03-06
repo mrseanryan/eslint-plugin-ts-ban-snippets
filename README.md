@@ -1,3 +1,11 @@
+# :no_entry_sign: eslint-plugin-ts-ban-snippets readme
+
+Ban snippets of TypeScript from your project, using a custom eslint rule 'ts-ban-snippets'.
+
+examples: "return void reject", "it.only", "debugger".
+
+This is an eslint port of [tslint-ban-snippets](https://github.com/mrseanryan/tslint-ban-snippets)
+
 ![CI CD Build](https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/actions/workflows/node.js.yml/badge.svg)
 
 [![Size](https://packagephobia.now.sh/badge?p=eslint-plugin-ts-ban-snippets)](https://packagephobia.now.sh/result?p=eslint-plugin-ts-ban-snippets)
@@ -14,11 +22,14 @@
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/K3K73ALBJ)
 
-Ban snippets of TypeScript from your project, using eslint.
+## features
 
-examples: "return void reject", "it.only", "debugger".
+- a custom eslint rule that can detect code snippets that are not desired
+- configurable for multiple code snippets
+- can include/exclude file paths
+- the error message can also be configured
 
-This is an eslint port of [tslint-ban-snippets](https://github.com/mrseanryan/tslint-ban-snippets)
+The rule is quite flexible and could potentially avoid having to create multiple custom eslint rules.
 
 ## Installation
 
