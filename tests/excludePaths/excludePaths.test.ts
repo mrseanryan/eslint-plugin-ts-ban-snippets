@@ -54,7 +54,7 @@ creteRuleTester(__dirname).run("ts-ban-snippets - excludePaths", rule, {
         {
           messageId: "BannedSnippetMessage",
           data: {
-            name: 'return void resolve("error!");',
+            name: "return void resolve",
             message:
               "Please do not return void - instead place the return statement on the following line.",
             ruleName: "ts-ban-snippets",
