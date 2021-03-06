@@ -28,10 +28,12 @@ This plugin requires your project to use TypeScript (>=4.1.3).
 yarn add eslint-plugin-ts-ban-snippets --dev
 ```
 
-## Example Configuration
+## Example Configurations
 
 The plugin relies on TypeScript compiler services to resolve types.
 You need to set your `tsconfig.json` file in your eslint configuration via `parserOptions`.
+
+### Simple example
 
 ```json
 {
@@ -47,6 +49,63 @@ You need to set your `tsconfig.json` file in your eslint configuration via `pars
           {
             "snippets": ["return void reject", "return void resolve"],
             "message": "Please do not return void - instead place the return statement on the following line."
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Example with multiple banned snippets
+
+```json
+{
+  "plugins": ["ts-ban-snippets"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "ts-ban-snippets/ts-ban-snippets": [
+      "error",
+      {
+        "banned": [
+          {
+            "snippets": ["return void reject", "return void resolve"],
+            "message": "Please do not return void - instead place the return statement on the following line."
+          },
+          {
+            "snippets": ["it.only", "describe.only"],
+            "message": "Do not enable only some tests."
+          },
+          {
+            "snippets": ["it.skip", "describe.skip"],
+            "message": "Do not skip tests."
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Example with excluded paths
+
+```json
+{
+  "plugins": ["ts-ban-snippets"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "ts-ban-snippets/ts-ban-snippets": [
+      "error",
+      {
+        "banned": [
+          {
+            "snippets": ["return void reject", "return void resolve"],
+            "message": "Please do not return void - instead place the return statement on the following line.",
+            "excludePaths": ["excluded"]
           }
         ]
       }
