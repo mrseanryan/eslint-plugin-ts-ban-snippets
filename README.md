@@ -160,4 +160,6 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## Rules
 
+For available options and for examples, see the Rule doc:
+
 - [ts-ban-snippets](./docs/ts-ban-snippets.md)

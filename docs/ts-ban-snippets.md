@@ -1,5 +1,15 @@
 # Banned TypeScript Snippets (`ts-ban-snippets`)
 
+## Options
+
+| Option        | Description                                                                                                                       |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| snippets      | An array of text snippets: raise problem for any code that matches. Cannot be used in combination with regexSnippets.             |
+| regexSnippets | An array of regex text snippets: raise problem for any code that matches (as Regex). Cannot be used in combination with snippets. |
+| message       | The message to display, if a problem is found.                                                                                    |
+| includePaths  | Only parse files where the file path contains one of these values.                                                                |
+| excludePaths  | Do NOT parse files where the file path contains one of these values.                                                              |
+
 ## Simple Example
 
 ### file: .eslintrc
