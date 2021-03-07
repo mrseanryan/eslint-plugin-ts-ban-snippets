@@ -9,7 +9,7 @@ type Banned = {
   snippets?: string[];
   regexSnippets?: string[];
   message: string;
-  // TODO includePaths?: string
+  includePaths?: string[];
   excludePaths?: string[];
 };
 
@@ -58,10 +58,11 @@ const analyzeNodeFor = (
   context: Readonly<RuleContext<"BannedSnippetMessage", Options>>,
   alreadyReported: string[]
 ) => {
-  if (
-    !!banned.excludePaths &&
-    isFileInPaths(node.getSourceFile().fileName, banned.excludePaths)
-  )
+  const fileName = node.getSourceFile().fileName;
+  if (!!banned.includePaths && !isFileInPaths(fileName, banned.includePaths))
+    return;
+
+  if (!!banned.excludePaths && isFileInPaths(fileName, banned.excludePaths))
     return;
 
   const text = node.getText();
@@ -123,6 +124,7 @@ export default createRule<Options, MessageIds>({
                     type: "string",
                   },
                 },
+                // regexSnippets and snippets are mutually exclusive
                 regexSnippets: {
                   type: "array",
                   items: {
@@ -131,6 +133,12 @@ export default createRule<Options, MessageIds>({
                 },
                 message: {
                   type: "string",
+                },
+                includePaths: {
+                  type: "array",
+                  items: {
+                    type: "string",
+                  },
                 },
                 excludePaths: {
                   type: "array",

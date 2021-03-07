@@ -83,9 +83,7 @@
 }
 ```
 
-### Example with excluded paths
-
-### file: .eslintrc
+### Example with included and excluded paths
 
 ```json
 {
@@ -101,6 +99,7 @@
           {
             "snippets": ["return void reject", "return void resolve"],
             "message": "Please do not return void - instead place the return statement on the following line.",
+            "includePaths": ["my-component"],
             "excludePaths": ["excluded"]
           }
         ]
