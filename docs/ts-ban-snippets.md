@@ -27,6 +27,30 @@
 }
 ```
 
+### Regex example
+
+```json
+{
+  "plugins": ["ts-ban-snippets"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "ts-ban-snippets/ts-ban-snippets": [
+      "error",
+      {
+        "banned": [
+          {
+            "regexSnippets": ["return void [reject|resolve]"],
+            "message": "Please do not return void - instead place the return statement on the following line."
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
 ### Example with multiple banned snippets
 
 ```json

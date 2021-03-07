@@ -6,7 +6,8 @@ import {
 } from "@typescript-eslint/experimental-utils/dist/ts-eslint";
 
 type Banned = {
-  snippets: string[];
+  snippets?: string[];
+  regexSnippets?: string[];
   message: string;
   // TODO includePaths?: string
   excludePaths?: string[];
@@ -33,6 +34,24 @@ function isFileInPaths(filePath: string, paths: string[]): boolean {
   return paths.some((path) => filePath.indexOf(path) >= 0);
 }
 
+const isRegexMatch = (regexRaw: string, text: string): boolean => {
+  const regex = new RegExp(regexRaw);
+  return regex.test(text);
+};
+
+const filterSnippets = (
+  bannedSnippetsRaw: string[],
+  isRegex: boolean,
+  text: string
+): string[] => {
+  const filterFun = (s: string): boolean => {
+    if (isRegex) return isRegexMatch(s, text);
+    return text.startsWith(s);
+  };
+
+  return bannedSnippetsRaw.filter(filterFun);
+};
+
 const analyzeNodeFor = (
   node: Node,
   banned: Banned,
@@ -51,7 +70,16 @@ const analyzeNodeFor = (
   node.getEnd();
   node.getSourceFile().getLineAndCharacterOfPosition(node.pos);
 
-  const bannedSnippets = banned.snippets.filter((s) => text.startsWith(s));
+  if (!!banned.snippets && !!banned.regexSnippets) {
+    throw new Error(
+      "Invalid config: 'snippets' and 'regexSnippets' are mutually exclusive."
+    );
+  }
+
+  const bannedSnippetsRaw = banned.snippets || banned.regexSnippets || [];
+  const isRegex = !!banned.regexSnippets;
+
+  const bannedSnippets = filterSnippets(bannedSnippetsRaw, isRegex, text);
 
   if (bannedSnippets.length > 0) {
     const pos = node.getSourceFile().getLineAndCharacterOfPosition(node.pos);
@@ -90,6 +118,12 @@ export default createRule<Options, MessageIds>({
               type: "object",
               properties: {
                 snippets: {
+                  type: "array",
+                  items: {
+                    type: "string",
+                  },
+                },
+                regexSnippets: {
                   type: "array",
                   items: {
                     type: "string",
