@@ -1,7 +1,7 @@
 import rule from "../../src/rules/ts-ban-snippets";
 import { creteRuleTester, getCode } from "../testUtils";
 
-creteRuleTester(__dirname).run("ts-ban-snippets - excludePaths", rule, {
+creteRuleTester(__dirname).run("ts-ban-snippets - includePaths", rule, {
   valid: [
     {
       code: getCode("fixtures/valid/test.ts", __dirname),
@@ -13,15 +13,15 @@ creteRuleTester(__dirname).run("ts-ban-snippets - excludePaths", rule, {
               snippets: ["return void reject", "return void resolve"],
               message:
                 "Please do not return void - instead place the return statement on the following line.",
-              excludePaths: ["excluded"],
+              includePaths: ["included"],
             },
           ],
         },
       ],
     },
     {
-      code: getCode("fixtures/valid/test1-excluded.ts", __dirname),
-      filename: "valid/test1-excluded.ts",
+      code: getCode("fixtures/valid/test1-not-cluded.ts", __dirname),
+      filename: "valid/test1-not-cluded.ts",
       options: [
         {
           banned: [
@@ -29,18 +29,18 @@ creteRuleTester(__dirname).run("ts-ban-snippets - excludePaths", rule, {
               snippets: ["return void reject", "return void resolve"],
               message:
                 "Please do not return void - instead place the return statement on the following line.",
-              excludePaths: ["excluded"],
+              includePaths: ["included"],
             },
           ],
         },
       ],
-      // no errors - since is excluded
+      // no errors - since is NOT included
     },
   ],
   invalid: [
     {
-      code: getCode("fixtures/invalid/test1.ts", __dirname),
-      filename: "invalid/test1.ts",
+      code: getCode("fixtures/invalid/test1-included.ts", __dirname),
+      filename: "invalid/test1-included.ts",
       options: [
         {
           banned: [
@@ -48,7 +48,7 @@ creteRuleTester(__dirname).run("ts-ban-snippets - excludePaths", rule, {
               snippets: ["return void reject", "return void resolve"],
               message:
                 "Please do not return void - instead place the return statement on the following line.",
-              excludePaths: ["excluded"],
+              includePaths: ["included"],
             },
           ],
         },

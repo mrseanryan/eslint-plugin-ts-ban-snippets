@@ -68,6 +68,30 @@ You need to set your `tsconfig.json` file in your eslint configuration via `pars
 }
 ```
 
+### Regex example
+
+```json
+{
+  "plugins": ["ts-ban-snippets"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "ts-ban-snippets/ts-ban-snippets": [
+      "error",
+      {
+        "banned": [
+          {
+            "regexSnippets": ["return void [reject|resolve]"],
+            "message": "Please do not return void - instead place the return statement on the following line."
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
 ### Example with multiple banned snippets
 
 ```json
@@ -100,7 +124,7 @@ You need to set your `tsconfig.json` file in your eslint configuration via `pars
 }
 ```
 
-### Example with excluded paths
+### Example with included and excluded paths
 
 ```json
 {
@@ -116,6 +140,7 @@ You need to set your `tsconfig.json` file in your eslint configuration via `pars
           {
             "snippets": ["return void reject", "return void resolve"],
             "message": "Please do not return void - instead place the return statement on the following line.",
+            "includePaths": ["my-component"],
             "excludePaths": ["excluded"]
           }
         ]
@@ -134,5 +159,7 @@ Original work by Sean Ryan - mr.sean.ryan(at gmail.com)
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/blob/master/LICENSE) file for details
 
 ## Rules
+
+For available options and for examples, see the Rule doc:
 
 - [ts-ban-snippets](./docs/ts-ban-snippets.md)

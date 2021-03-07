@@ -1,7 +1,7 @@
 import rule from "../../src/rules/ts-ban-snippets";
 import { creteRuleTester, getCode } from "../testUtils";
 
-creteRuleTester(__dirname).run("ts-ban-snippets - excludePaths", rule, {
+creteRuleTester(__dirname).run("ts-ban-snippets - regex", rule, {
   valid: [
     {
       code: getCode("fixtures/valid/test.ts", __dirname),
@@ -10,31 +10,13 @@ creteRuleTester(__dirname).run("ts-ban-snippets - excludePaths", rule, {
         {
           banned: [
             {
-              snippets: ["return void reject", "return void resolve"],
+              regexSnippets: ["return void [reject|resolve]"],
               message:
                 "Please do not return void - instead place the return statement on the following line.",
-              excludePaths: ["excluded"],
             },
           ],
         },
       ],
-    },
-    {
-      code: getCode("fixtures/valid/test1-excluded.ts", __dirname),
-      filename: "valid/test1-excluded.ts",
-      options: [
-        {
-          banned: [
-            {
-              snippets: ["return void reject", "return void resolve"],
-              message:
-                "Please do not return void - instead place the return statement on the following line.",
-              excludePaths: ["excluded"],
-            },
-          ],
-        },
-      ],
-      // no errors - since is excluded
     },
   ],
   invalid: [
@@ -45,10 +27,9 @@ creteRuleTester(__dirname).run("ts-ban-snippets - excludePaths", rule, {
         {
           banned: [
             {
-              snippets: ["return void reject", "return void resolve"],
+              regexSnippets: ["^return void [reject|resolve]"],
               message:
                 "Please do not return void - instead place the return statement on the following line.",
-              excludePaths: ["excluded"],
             },
           ],
         },
@@ -57,7 +38,7 @@ creteRuleTester(__dirname).run("ts-ban-snippets - excludePaths", rule, {
         {
           messageId: "BannedSnippetMessage",
           data: {
-            name: "return void resolve",
+            name: "^return void [reject|resolve]",
             message:
               "Please do not return void - instead place the return statement on the following line.",
             ruleName: "ts-ban-snippets",
