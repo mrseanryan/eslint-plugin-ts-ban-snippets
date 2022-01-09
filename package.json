@@ -47,7 +47,9 @@
     "typescript": "^4.1.3"
   },
   "release": {
-    "branches": ["main"]
+    "branches": [
+      "main"
+    ]
   },
   "repository": {
     "type": "git",
