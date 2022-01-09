@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --ext .ts,.tsx . --max-warnings 0",
-    "test": "yarn lint"
+    "test": "yarn test:explain && yarn lint",
+    "test:explain": "echo 'This should raise an error like:' && echo '>>> error  return void resolve is a banned code snippet'"
   },
   "author": "",
   "license": "MIT",
