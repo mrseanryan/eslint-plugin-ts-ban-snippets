@@ -16,6 +16,6 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "eslint": "^7.21.0",
-    "eslint-plugin-ts-ban-snippets": "^1.0.1"
+    "eslint-plugin-ts-ban-snippets": "^1.2.1"
   }
 }
