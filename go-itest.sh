@@ -1,4 +1,3 @@
-pushd itests
-pushd simple-harness
+pushd itests/simple-harness
 ./go.sh
-
+popd

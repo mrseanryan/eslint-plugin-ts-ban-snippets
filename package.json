@@ -4,12 +4,12 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "prepublish": "yarn build",
-    "test": "jest --coverage",
+    "prepublish": "yarn test",
+    "test": "yarn build && yarn lint && yarn test:coverage",
+    "test:coverage": "jest --coverage",
     "lint": "eslint --ext .ts,.tsx . --max-warnings 0",
     "tsc": "tsc",
     "build": "tsc -b tsconfig.build.json",
-    "ci": "yarn lint && yarn tsc && yarn test",
     "semantic-release": "semantic-release"
   },
   "files": [
