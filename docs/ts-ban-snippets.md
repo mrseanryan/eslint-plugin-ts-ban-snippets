@@ -1,5 +1,7 @@
 # Banned TypeScript Snippets (`ts-ban-snippets`)
 
+To ban particular snippets of TypeScript code, you simply edit the `.eslintrc` file.
+
 ## Options
 
 | Option        | Description                                                                                                                       |
@@ -10,11 +12,11 @@
 | includePaths  | Only parse files where the file path contains one of these values.                                                                |
 | excludePaths  | Do NOT parse files where the file path contains one of these values.                                                              |
 
-## Simple Example
+## Simple Example `.eslintrc`
 
-### file: .eslintrc
+This example detects use of `return void reject` or `return void resolve` and raises an error.
 
-```
+```json
 {
   "plugins": ["ts-ban-snippets"],
   "parserOptions": {
@@ -37,7 +39,9 @@
 }
 ```
 
-### Regex example
+### Regex example `.eslintrc`
+
+This example also detects use of `return void reject` or `return void resolve` and raises an error - but using a regular expression.
 
 ```json
 {
@@ -61,7 +65,13 @@
 }
 ```
 
-### Example with multiple banned snippets
+### Example `.eslintrc` with multiple banned snippets
+
+This example has a list of banned snippets:
+
+- ban `return void reject` or `return void resolve`
+- ban only enabling some tests via `it.only` or `describe.only`
+- ban disabling tests via `it.skip` or test suites via `describe.skip`
 
 ```json
 {
@@ -93,7 +103,11 @@
 }
 ```
 
-### Example with included and excluded paths
+### Example `.eslintrc` with included and excluded paths
+
+This example has one banned snippet (`return void reject` or `return void resolve`).
+
+Only files with a path that contains `my-component` and does not contain `excluded` are scanned.
 
 ```json
 {
@@ -118,3 +132,7 @@
   }
 }
 ```
+
+For working tests, please see the [unit tests](https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/blob/master/tests).
+
+For a real code example, see the [test harness](https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/tree/main/itests/simple-harness).  In particular, the [.eslintrc](https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/tree/main/itests/simple-harness/.eslintrc) file.

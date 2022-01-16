@@ -42,9 +42,23 @@ yarn add eslint-plugin-ts-ban-snippets --dev
 ## Example Configurations
 
 The plugin relies on TypeScript compiler services to resolve types.
-You need to set your `tsconfig.json` file in your eslint configuration via `parserOptions`.
 
-### Simple example
+The following examples show how to configure banned snippets in the `.eslintrc` file(s) of your project.
+
+note: in the `.eslintrc` file, you need to set your `tsconfig.json` file in your eslint configuration via `parserOptions`:
+
+```json
+{
+  "plugins": ["ts-ban-snippets"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  }
+}
+```
+
+### Simple example `.eslintrc`
+
+This example detects use of `return void reject` or `return void resolve` and raises an error.
 
 ```json
 {
@@ -68,7 +82,9 @@ You need to set your `tsconfig.json` file in your eslint configuration via `pars
 }
 ```
 
-### Regex example
+### Regex example `.eslintrc`
+
+This example also detects use of `return void reject` or `return void resolve` and raises an error - but using a regular expression.
 
 ```json
 {
@@ -92,7 +108,14 @@ You need to set your `tsconfig.json` file in your eslint configuration via `pars
 }
 ```
 
-### Example with multiple banned snippets
+### Example `.eslintrc` with multiple banned snippets
+
+This example has a list of banned snippets:
+
+- ban `return void reject` or `return void resolve`
+- ban only enabling some tests via `it.only` or `describe.only`
+- ban disabling tests via `it.skip` or test suites via `describe.skip`
+
 
 ```json
 {
@@ -124,7 +147,11 @@ You need to set your `tsconfig.json` file in your eslint configuration via `pars
 }
 ```
 
-### Example with included and excluded paths
+### Example `.eslintrc` with included and excluded paths
+
+This example has one banned snippet (`return void reject` or `return void resolve`).
+
+Only files with a path that contains `my-component` and does not contain `excluded` are scanned.
 
 ```json
 {
@@ -149,6 +176,10 @@ You need to set your `tsconfig.json` file in your eslint configuration via `pars
   }
 }
 ```
+
+For working tests, please see the [unit tests](https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/blob/master/tests).
+
+For a real code example, see the [test harness](https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/tree/main/itests/simple-harness).  In particular, the [.eslintrc](https://github.com/mrseanryan/eslint-plugin-ts-ban-snippets/tree/main/itests/simple-harness/.eslintrc) file.
 
 ## authors
 
