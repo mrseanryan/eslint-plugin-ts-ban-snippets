@@ -478,10 +478,10 @@ eslint-plugin-import@^2.22.1:
     resolve "^1.20.0"
     tsconfig-paths "^3.12.0"
 
-eslint-plugin-ts-ban-snippets@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-ts-ban-snippets/-/eslint-plugin-ts-ban-snippets-1.2.1.tgz#c3896b8bd06f93978bcac6dd32c01da22b7448ff"
-  integrity sha512-jW6MhvhNZjQzFzhhsRWpJagRnMElDxAH+TOllveqLd5YrvP/t7bWyHTIIWkf5DtJm6kU82hBcTENmzWb9nwelw==
+eslint-plugin-ts-ban-snippets@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-ts-ban-snippets/-/eslint-plugin-ts-ban-snippets-1.2.2.tgz#6d9d6d36f05fb2210edc3a93a9655563581d2d9e"
+  integrity sha512-MT8xa69sJXZTAw6TzJiUHzJSU8Rrj4HiKAWsnDP/YzCI82peX2O5+W3X+76vU0y9JSEMUF3GkpGfEngeI99xPg==
   dependencies:
     "@typescript-eslint/experimental-utils" "^4.12.0"
     "@typescript-eslint/parser" "^4.16.0"
